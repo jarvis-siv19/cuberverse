@@ -17,6 +17,7 @@ import {
   Trophy,
   Medal,
   Heart,
+  BrainCircuit,
   Menu,
   X,
 } from "lucide-react"
@@ -27,6 +28,9 @@ import { signOut } from "firebase/auth"
 const PUBLIC_LINKS = [
   { href: "/algorithms", label: "Algorithms", icon: BookOpen },
   { href: "/timer", label: "Timer", icon: Timer },
+  ...(process.env.NEXT_PUBLIC_COACH_LAB === "false"
+    ? []
+    : [{ href: "/coach-lab", label: "Coach", icon: BrainCircuit }]),
   { href: "/notation", label: "Notation", icon: Book },
   { href: "/solve", label: "Solver", icon: ScanLine },
   { href: "/competitions", label: "Competitions", icon: Trophy },
@@ -111,8 +115,8 @@ export function Navigation() {
           <span className="text-lg font-bold sm:text-xl">CuberVerse</span>
         </Link>
 
-        {/* Nine links (signed in) + the auth button only genuinely fit at xl,
-            and only without icons — the icons stay for the mobile panel. */}
+        {/* The full signed-in link set only genuinely fits at xl, and only
+            without icons — the icons stay for the mobile panel. */}
         <div className="hidden items-center gap-4 xl:flex">
           {links.map(({ href, label }) => (
             <Link
